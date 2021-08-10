@@ -45,4 +45,62 @@ describe('express-validator', (): void => {
     const result = validationResult(req)
     result.array().length.should.equal(0)
   })
+
+  it('should validate array nested properties', async () => {
+    const req = createRequest({
+      body: { test: 'exists', some: { array: [] } }
+    })
+    await testExpressValidatorMiddleware(req, createResponse(), [
+      body(nameof<MyCommand>((c) => c.some.array)).isArray()
+    ])
+    const result = validationResult(req)
+    result.array().length.should.equal(0)
+  })
+  it('should not validate invalid array nested properties', async () => {
+    const req = createRequest({
+      body: { test: 'exists', some: { array: [] } }
+    })
+    await testExpressValidatorMiddleware(req, createResponse(), [
+      body(nameof<MyCommand>((c) => c.some.array)).isArray({ min: 1 })
+    ])
+    const result = validationResult(req)
+    result.array().length.should.equal(1)
+  })
+  it('should validate array number nested properties', async () => {
+    const req = createRequest({
+      body: { test: 'exists', some: { array: [123] } }
+    })
+    await testExpressValidatorMiddleware(req, createResponse(), [
+      body(nameof<MyCommand>((c) => c.some.array))
+        .isArray({ min: 1 })
+        .custom((value) => {
+          if (!value.every(Number.isInteger))
+            throw new Error('Number must be an integer')
+          return true
+        })
+    ])
+    const result = validationResult(req)
+    console.log(result)
+
+    result.array().length.should.equal(0)
+  })
+
+  it('should not validate invalid array number nested properties', async () => {
+    const req = createRequest({
+      body: { test: 'exists', some: { array: ['123'] } }
+    })
+    await testExpressValidatorMiddleware(req, createResponse(), [
+      body(nameof<MyCommand>((c) => c.some.array))
+        .isArray({ min: 1 })
+        .custom((value) => {
+          if (!value.every(Number.isInteger))
+            throw new Error('Number must be an integer')
+          return true
+        })
+    ])
+    const result = validationResult(req)
+    console.log(result)
+
+    result.array().length.should.equal(1)
+  })
 })

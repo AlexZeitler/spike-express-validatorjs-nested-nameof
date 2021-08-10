@@ -3,5 +3,6 @@ export type MyCommand = {
     nested: {
       property: string
     }
+    array: number[]
   }
 }
