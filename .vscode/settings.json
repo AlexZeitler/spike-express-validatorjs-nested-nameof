@@ -1,0 +1,49 @@
+{
+  "mochaExplorer.files": "test/**/*.ts",
+  "mochaExplorer.require": "ts-mocha",
+  "mochaExplorer.exit": true,
+  "mochaExplorer.timeout": 5000,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/*.js.map": true
+  },
+  "yaml.customTags": [
+    "!And",
+    "!And sequence",
+    "!If",
+    "!If sequence",
+    "!Not",
+    "!Not sequence",
+    "!Equals",
+    "!Equals sequence",
+    "!Or",
+    "!Or sequence",
+    "!FindInMap",
+    "!FindInMap sequence",
+    "!Base64",
+    "!Join",
+    "!Join sequence",
+    "!Cidr",
+    "!Ref",
+    "!Sub",
+    "!Sub sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!ImportValue sequence",
+    "!Select",
+    "!Select sequence",
+    "!Split",
+    "!Split sequence"
+  ]
+}
